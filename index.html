@@ -10,64 +10,103 @@
     <header>
         <h1>Electronic Discovery Reference Model</h1>
         <p class="subtitle">A framework for the management of electronically stored information in legal and forensic contexts.</p>
+        <nav style="margin-top: 1.5rem;">
+            <a href="glossary.html" class="link">Technical Glossary</a>
+            <a href="tools.html" class="link">Industry Tools</a>
+            <a href="scenarios.html" class="link">Case Scenarios</a>
+        </nav>
     </header>
 
     <main>
+        <section id="flow" class="card">
+            <h2>EDRM Workflow Lifecycle</h2>
+            <div class="flow-container">
+                <a href="information_governance.html" class="flow-step">GOVERNANCE</a>
+                <span class="flow-arrow">&#8594;</span>
+                <a href="identification.html" class="flow-step">IDENTIFICATION</a>
+                <span class="flow-arrow">&#8594;</span>
+                <a href="preservation.html" class="flow-step">PRESERVATION</a>
+                <span class="flow-arrow">&#8594;</span>
+                <a href="collection.html" class="flow-step">COLLECTION</a>
+                <span class="flow-arrow">&#8594;</span>
+                <a href="processing.html" class="flow-step">PROCESSING</a>
+                <span class="flow-arrow">&#8594;</span>
+                <a href="review.html" class="flow-step">REVIEW</a>
+                <span class="flow-arrow">&#8594;</span>
+                <a href="analysis.html" class="flow-step">ANALYSIS</a>
+                <span class="flow-arrow">&#8594;</span>
+                <a href="production.html" class="flow-step">PRODUCTION</a>
+                <span class="flow-arrow">&#8594;</span>
+                <a href="presentation.html" class="flow-step">PRESENTATION</a>
+            </div>
+        </section>
+
+        <section class="search-container">
+            <h2>Search and Filter Stages</h2>
+            <input type="text" id="stageSearch" placeholder="SEARCH EDRM STAGES..." class="search-input">
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="filterStages('all', this)">All Stages</button>
+                <button class="filter-btn" onclick="filterStages('management', this)">Management</button>
+                <button class="filter-btn" onclick="filterStages('technical', this)">Technical Action</button>
+                <button class="filter-btn" onclick="filterStages('legal', this)">Legal Outcome</button>
+            </div>
+        </section>
+
         <section id="introduction" class="card">
             <h2>Overview</h2>
             <p>The Electronic Discovery Reference Model (EDRM) serves as a conceptual framework for the electronic discovery process. It provides a standard for organizations to manage electronic data during investigations and litigation. This model outlines the essential stages from data creation to final presentation in a formal setting.</p>
         </section>
 
         <section id="stages" class="grid">
-            <div class="card">
+            <div class="card" data-category="management" data-title="information governance">
                 <h3>Information Governance</h3>
                 <p>Establishing policies and procedures to manage information throughout its lifecycle. This stage focuses on reducing risk and costs associated with data management before any legal action commences.</p>
                 <a href="information_governance.html" class="link">Read Detailed Analysis</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-category="management" data-title="identification">
                 <h3>Identification</h3>
                 <p>Locating potential sources of electronically stored information. Specialists identify relevant data repositories and determine the scope of information that may be pertinent to the legal matter.</p>
                 <a href="identification.html" class="link">Read Detailed Analysis</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-category="management" data-title="preservation">
                 <h3>Preservation</h3>
                 <p>Ensuring that potentially relevant data is protected against alteration or destruction. A legal hold is typically issued to prevent the routine deletion of records.</p>
                 <a href="preservation.html" class="link">Read Detailed Analysis</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-category="technical" data-title="collection">
                 <h3>Collection</h3>
                 <p>Gathering electronically stored information from the identified sources. The collection must be conducted in a manner that maintains the integrity of the original data and metadata.</p>
                 <a href="collection.html" class="link">Read Detailed Analysis</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-category="technical" data-title="processing">
                 <h3>Processing</h3>
                 <p>Reducing the volume of gathered information through technical means. This stage involves filtering data by date range, file type, or keywords and converting it into formats suitable for review.</p>
                 <a href="processing.html" class="link">Read Detailed Analysis</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-category="technical" data-title="review">
                 <h3>Review</h3>
                 <p>Evaluating the processed data for relevance and privilege. Legal teams assess documents to determine if they should be produced to the opposing party or withheld based on legal protections.</p>
                 <a href="review.html" class="link">Read Detailed Analysis</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-category="technical" data-title="analysis">
                 <h3>Analysis</h3>
                 <p>Evaluating the content and context of the information. This phase uses advanced tools to identify patterns, key themes, and relationships within the data set.</p>
                 <a href="analysis.html" class="link">Read Detailed Analysis</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-category="legal" data-title="production">
                 <h3>Production</h3>
                 <p>Delivering the relevant information that is not privileged to the requesting parties. The data is provided in agreed formats and accompanied by appropriate documentation.</p>
                 <a href="production.html" class="link">Read Detailed Analysis</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-category="legal" data-title="presentation">
                 <h3>Presentation</h3>
                 <p>Displaying the findings before an audience, such as a judge, jury, or administrative body. This final stage involves the strategic use of evidence to support legal arguments.</p>
                 <a href="presentation.html" class="link">Read Detailed Analysis</a>
@@ -80,5 +119,37 @@
         <p>Source Code: <a href="https://github.com/ayushedith/edrm-model" class="link">GitHub Repository</a></p>
         <p>Owner: <a href="https://iayush.in" class="link">iayush.in</a></p>
     </footer>
+
+    <script>
+        const cards = document.querySelectorAll('.grid .card');
+        const searchInput = document.getElementById('stageSearch');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title');
+                if (title.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        function filterStages(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'all' || cardCat === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            searchInput.value = '';
+        }
+    </script>
 </body>
 </html>
